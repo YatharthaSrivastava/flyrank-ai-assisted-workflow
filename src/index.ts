@@ -1,47 +1,65 @@
 /**
- * FlyRank Engine - Core Entry Point
+ * FlyRank.ai - Enterprise Flight Search & Ranking Core Engine
+ * Copyright (c) 2026 FlyRank.ai
  */
 
-export interface FlightOption {
+export interface FlightItinerary {
   id: string;
-  airline: string;
-  origin: string;
-  destination: string;
-  price: number;
+  airlineCode: string;
+  airlineName: string;
+  originIata: string;
+  destinationIata: string;
+  priceUsd: number;
   durationMinutes: number;
-  stops: number;
+  stopCount: number;
   carbonKg: number;
 }
 
-export interface RankingWeights {
-  priceWeight: number;
-  durationWeight: number;
-  stopsWeight: number;
-  carbonWeight: number;
+export interface OptimizationWeights {
+  price: number;
+  duration: number;
+  stops: number;
+  carbon: number;
 }
 
+export const DEFAULT_FLYRANK_WEIGHTS: OptimizationWeights = {
+  price: 0.4,
+  duration: 0.3,
+  stops: 0.2,
+  carbon: 0.1,
+};
+
 /**
- * Calculates a composite score for a flight option (lower score is better).
+ * Computes the multi-objective FlyRank score for an itinerary.
+ * Lower composite scores indicate higher ranking efficiency.
  */
-export function scoreFlight(flight: FlightOption, weights: RankingWeights): number {
-  const normalizedPrice = flight.price / 100;
-  const normalizedDuration = flight.durationMinutes / 60;
-  const stopsPenalty = flight.stops * 2.5;
-  const carbonPenalty = flight.carbonKg / 50;
+export function calculateFlyRankScore(
+  itinerary: FlightItinerary,
+  weights: OptimizationWeights = DEFAULT_FLYRANK_WEIGHTS
+): number {
+  const normalizedPrice = itinerary.priceUsd / 100;
+  const normalizedDuration = itinerary.durationMinutes / 60;
+  const stopsPenalty = itinerary.stopCount * 2.5;
+  const carbonPenalty = itinerary.carbonKg / 50;
 
   return (
-    normalizedPrice * weights.priceWeight +
-    normalizedDuration * weights.durationWeight +
-    stopsPenalty * weights.stopsWeight +
-    carbonPenalty * weights.carbonWeight
+    normalizedPrice * weights.price +
+    normalizedDuration * weights.duration +
+    stopsPenalty * weights.stops +
+    carbonPenalty * weights.carbon
   );
 }
 
 /**
- * Ranks flight options in ascending order of score (best to worst).
+ * Sorts and ranks itineraries according to the FlyRank.ai multi-objective algorithm.
  */
-export function rankFlights(flights: FlightOption[], weights: RankingWeights): FlightOption[] {
-  return [...flights].sort((a, b) => scoreFlight(a, weights) - scoreFlight(b, weights));
+export function rankItineraries(
+  itineraries: FlightItinerary[],
+  weights: OptimizationWeights = DEFAULT_FLYRANK_WEIGHTS
+): FlightItinerary[] {
+  return [...itineraries].sort(
+    (a, b) => calculateFlyRankScore(a, weights) - calculateFlyRankScore(b, weights)
+  );
 }
 
-console.log("✈️ FlyRank Core Engine initialized.");
+console.log("✈️ FlyRank.ai Core Ranking Engine loaded successfully.");

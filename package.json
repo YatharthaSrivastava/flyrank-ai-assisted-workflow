@@ -1,7 +1,8 @@
 {
-  "name": "flyrank",
+  "name": "@flyrank/core",
   "version": "0.1.0",
-  "description": "Intelligent flight search and multi-criteria ranking engine",
+  "description": "FlyRank.ai - Enterprise Flight Search and Multi-Criteria Ranking Engine",
+  "homepage": "https://flyrank.ai",
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
@@ -14,12 +15,14 @@
     "typecheck": "tsc --noEmit"
   },
   "keywords": [
+    "flyrank",
     "flight-search",
     "ranking-algorithm",
-    "travel-optimization",
+    "travel-tech",
+    "pareto-optimal",
     "ai"
   ],
-  "author": "Yathartha",
+  "author": "FlyRank.ai Engineering <engineering@flyrank.ai>",
   "license": "MIT",
   "engines": {
     "node": ">=20.0.0"

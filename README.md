@@ -1,71 +1,92 @@
-# FlyRank ✈️ - Flight Search & Ranking Engine
+# FlyRank.ai ✈️ - Enterprise Flight Search & Intelligent Ranking Platform
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-blue.svg)](https://www.typescriptlang.org/)
 [![Code Style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io)
+[![Organization](https://img.shields.io/badge/org-FlyRank.ai-0A66C2.svg)](https://flyrank.ai)
 
-FlyRank is an intelligent, multi-criteria flight search and ranking engine designed to optimize flight discovery beyond simple pricing. It evaluates itineraries across price, total transit time, layover friction, and carbon efficiency using multi-objective scoring.
+**FlyRank.ai** is a next-generation travel-technology platform delivering real-time flight intelligence and multi-criteria itinerary ranking. By moving beyond primitive price sorting, FlyRank.ai computes Pareto-optimal travel routes balancing fare, travel duration, layover friction, and environmental carbon impact.
 
 ---
 
 ## 📋 Table of Contents
-- [Architecture & Workflow](#-architecture--workflow)
-- [Key Features](#-key-features)
+- [Company Mission](#-company-mission)
+- [System Architecture](#-system-architecture)
+- [Core Platform Capabilities](#-core-platform-capabilities)
 - [Prerequisites](#-prerequisites)
-- [Installation & Setup](#-installation--setup)
+- [Installation & Quickstart](#-installation--quickstart)
 - [Available Scripts](#-available-scripts)
-- [Project Structure](#-project-structure)
-- [AI Development Guidelines](#-ai-development-guidelines)
-- [Contributing & Commits](#-contributing--commits)
-- [License](#-license)
+- [Repository Structure](#-repository-structure)
+- [AI Development & Coding Standards](#-ai-development--coding-standards)
+- [Conventional Commits & Contributing](#-conventional-commits--contributing)
+- [License & Enterprise Support](#-license--enterprise-support)
 
 ---
 
-## 🏗 Architecture & Workflow
+## 🌐 Company Mission
+
+At **FlyRank.ai**, our mission is to empower modern travelers and enterprise booking engines with high-throughput, algorithmic decision intelligence for commercial aviation.
+
+---
+
+## 🏗 System Architecture
 
 ```text
-[ User / Client Query ]
-         │
-         ▼
-[ API Gateway / Router ]
-         │
-         ├───▶ [ Flight Feed Ingestion Service ] ──▶ (GDS / Airline APIs)
-         │
-         ▼
-[ Ranking & Scoring Engine ]
-         ├── Price Normalization
-         ├── Duration & Layover Analysis
-         └── Carbon Footprint Calculation
-         │
-         ▼
-[ Pareto-Optimal Ranked Itineraries ]
+               ┌──────────────────────────────┐
+               │    Client App / B2B API      │
+               └──────────────┬───────────────┘
+                              │ HTTPS / gRPC
+                              ▼
+               ┌──────────────────────────────┐
+               │   FlyRank.ai API Gateway     │
+               └──────────────┬───────────────┘
+                              │
+               ┌──────────────┴───────────────┐
+               ▼                              ▼
+┌──────────────────────────────┐ ┌──────────────────────────────┐
+│  Flight Ingestion Service    │ │   Dynamic Pricing Stream     │
+│  (GDS / Direct Airline APIs) │ │   (Live Fare & Volatility)   │
+└──────────────┬───────────────┘ └──────────────┬───────────────┘
+               │                                │
+               └──────────────┬─────────────────┘
+                              ▼
+               ┌──────────────────────────────┐
+               │  FlyRank.ai Scoring Engine   │
+               │  ├── Price Normalization     │
+               │  ├── Layover Quality Index   │
+               │  └── Carbon Impact (CO2-e)   │
+               └──────────────┬───────────────┘
+                              ▼
+               ┌──────────────────────────────┐
+               │  Pareto-Optimal Ranked Feed  │
+               └──────────────────────────────┘
 ```
 
 ---
 
-## ✨ Key Features
+## ✨ Core Platform Capabilities
 
-- **Multi-Objective Ranking:** Configurable weights for price, travel duration, number of layovers, and carbon footprint.
-- **Pareto-Optimal Filtering:** Identifies dominant flight combinations so users never compromise unnecessarily.
-- **Modular TypeScript Core:** Decoupled scoring logic with full type safety and unit test coverage.
-- **AI-Agent Ready:** Detailed `CLAUDE.md` context and instructions for AI-assisted development (Claude Code, Cursor, Antigravity).
+- **Multi-Objective Optimization Engine:** Custom scoring models weighting cost, journey time, stop convenience, and carbon efficiency.
+- **Pareto-Frontier Sorting:** Filters out sub-optimal flights, surfacing only mathematically non-dominated options.
+- **Microservice-Ready Architecture:** Designed for low-latency asynchronous processing in distributed Node.js/TypeScript environments.
+- **AI-Native Engineering:** First-class integration with AI coding assistants (Claude Code, Cursor, Antigravity) via standardized [`CLAUDE.md`](./CLAUDE.md).
 
 ---
 
 ## ⚙️ Prerequisites
 
 - **Node.js:** `>= 20.0.0` (LTS recommended)
-- **npm:** `>= 10.0.0` or **pnpm** / **yarn**
+- **npm:** `>= 10.0.0` (or `pnpm` / `yarn`)
 - **Git:** `>= 2.30.0`
 
 ---
 
-## 🚀 Installation & Setup
+## 🚀 Installation & Quickstart
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/<your-username>/flyrank.git
+   git clone https://github.com/flyrank-ai/flyrank.git
    cd flyrank/assign1
    ```
 
@@ -74,12 +95,12 @@ FlyRank is an intelligent, multi-criteria flight search and ranking engine desig
    npm install
    ```
 
-3. **Start development server:**
+3. **Start in development mode:**
    ```bash
    npm run dev
    ```
 
-4. **Build for production:**
+4. **Build production distribution:**
    ```bash
    npm run build
    ```
@@ -90,52 +111,54 @@ FlyRank is an intelligent, multi-criteria flight search and ranking engine desig
 
 | Command | Description |
 | :--- | :--- |
-| `npm run dev` | Runs the engine in development mode with live reload |
-| `npm run build` | Compiles TypeScript source files into `dist/` |
+| `npm run dev` | Runs the engine in development mode with hot reload |
+| `npm run build` | Compiles TypeScript source files into `/dist` |
 | `npm start` | Executes the compiled production bundle |
-| `npm test` | Runs the test suite via Vitest |
-| `npm run typecheck` | Validates TypeScript types across the project |
-| `npm run format` | Formats all source files using Prettier |
-| `npm run lint` | Runs static analysis checks |
+| `npm test` | Runs the unit and integration test suite via Vitest |
+| `npm run typecheck` | Runs `tsc --noEmit` to validate strict typing |
+| `npm run format` | Formats all project files using Prettier |
+| `npm run lint` | Runs static analysis and ESLint code standards |
 
 ---
 
-## 📂 Project Structure
+## 📂 Repository Structure
 
 ```text
 assign1/
 ├── src/
-│   └── index.ts          # Core flight ranking logic and score calculation
-├── .gitignore            # Git exclusion patterns
-├── CLAUDE.md             # AI coding guidelines and repository context
-├── LICENSE               # MIT License
-├── package.json          # Project manifest and scripts
-├── tsconfig.json         # TypeScript compiler configuration
-└── README.md             # Project documentation (this file)
+│   └── index.ts          # Core FlyRank.ai scoring & ranking algorithm
+├── .gitignore            # Git exclusion definitions
+├── CLAUDE.md             # AI coding instructions & workspace context
+├── LICENSE               # MIT Open-Source License
+├── package.json          # Project manifest, dependencies, and scripts
+├── tsconfig.json         # TypeScript strict configuration
+└── README.md             # Platform documentation and architecture overview
 ```
 
 ---
 
-## 🤖 AI Development Guidelines
+## 🤖 AI Development & Coding Standards
 
-This repository is optimized for AI-assisted workflows. Consult [`CLAUDE.md`](./CLAUDE.md) for detailed guidelines on coding standards, architectural rules, and test verification requirements.
+This repository adheres to strict AI-assisted development protocols. All agents and contributors must follow [`CLAUDE.md`](./CLAUDE.md) for architectural rules, coding styles, and verification flows.
 
 ---
 
-## 🤝 Contributing & Commits
+## 🤝 Conventional Commits & Contributing
 
-All commits must adhere to the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+All contributions and automated edits must follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+
 ```text
-<type>(<scope>): <short summary>
+<type>(<scope>): <subject>
 
-# Examples:
-feat(scoring): implement multi-objective weighted sorting
-fix(api): handle missing layover airport codes gracefully
-docs(readme): add architecture workflow diagram
+# Example Commit Messages:
+feat(ranking): implement Pareto-optimal itinerary filter
+fix(ingestion): resolve timezone offset parsing for overnight flights
+docs(readme): update FlyRank.ai system architecture diagram
 ```
 
 ---
 
-## 📄 License
+## 📄 License & Enterprise Support
 
-This project is licensed under the [MIT License](./LICENSE) © 2026 Yathartha.
+Distributed under the [MIT License](./LICENSE). Copyright © 2026 FlyRank.ai.
+For enterprise licensing, API access, and partnerships, visit [https://flyrank.ai](https://flyrank.ai).
