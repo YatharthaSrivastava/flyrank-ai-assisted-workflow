@@ -1,0 +1,33 @@
+{
+  "name": "flyrank",
+  "version": "0.1.0",
+  "description": "Intelligent flight search and multi-criteria ranking engine",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src --ext .ts",
+    "format": "prettier --write \"src/**/*.{ts,js,json}\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "flight-search",
+    "ranking-algorithm",
+    "travel-optimization",
+    "ai"
+  ],
+  "author": "Yathartha",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "prettier": "^3.3.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  }
+}
