@@ -1,20 +1,29 @@
-# CLAUDE.md - FlyRank.ai AI Development Guidelines & Workspace Context
+# CLAUDE.md - FlyRank.ai AI Assistant Guidelines & Platform Context
 
-This document defines the architecture, conventions, and engineering standards for AI assistants (Claude Code, Cursor, Antigravity) working on the **FlyRank.ai** platform codebase.
+This document guides AI assistants (Claude Code, Cursor, Antigravity) working on the **FlyRank.ai** platform codebase.
 
 ---
 
-## 1. Company & Platform Overview
+## 1. Platform Overview & Mission
 
-**FlyRank.ai** is a commercial aviation travel-tech company building high-performance flight search, dynamic pricing intelligence, and multi-objective itinerary ranking engines.
+**FlyRank.ai** is the all-in-one platform for organic and AI search growth. It enables brands to rank on Google and become the trusted, cited answer across AI engines (**ChatGPT, Perplexity, Claude, and Google AI Overviews**).
 
-### Enterprise Technology Stack
+### Core Platform Modules
+1. **FlyRank Engine:** Multi-modal content creation by agentic AI (Copy Agent, SEO Agent, Visual Agent) with human editor oversight.
+2. **FlyRank Visibility:** AEO (Answer Engine Optimization) and GEO (Generative Engine Optimization) with schema & citation tracking.
+3. **FlyRank Refresh:** Automated page audits, content updates, and continuous indexation.
+4. **FlyRank Reach:** Cultural localization and translation across 30+ languages.
+5. **FlyRank Command:** Unified analytics cockpit for traffic, AI mentions, keyword ranks, and pipelines.
+6. **FlyRank Social:** Agentic social content distribution for LinkedIn, TikTok, and Instagram.
+
+### Technology Stack
 - **Runtime:** Node.js (v20+ LTS recommended)
-- **Language:** TypeScript 5.x (ESNext target, strict mode enabled)
-- **Frameworks:** Fastify / Express (Backend APIs), Next.js 15+ (Enterprise Web Portal)
-- **Validation & Schemas:** Zod
+- **Language:** TypeScript 5.x (Strict mode, ESNext target)
+- **Backend Framework:** Fastify / Express (REST & gRPC APIs)
+- **Frontend Framework:** Next.js 15+ / Nuxt (Marketing & Platform Portals)
+- **Validation:** Zod
 - **Testing:** Vitest / Jest, Supertest
-- **Linting & Code Quality:** ESLint (Flat Config) + Prettier
+- **Code Quality:** ESLint (v9 flat config) + Prettier
 
 ---
 
@@ -23,62 +32,63 @@ This document defines the architecture, conventions, and engineering standards f
 ```text
 assign1/
 ├── src/
-│   ├── api/            # REST and gRPC API route handlers
-│   ├── core/           # FlyRank.ai core ranking algorithms & multi-objective scoring
-│   ├── services/       # GDS feeds, dynamic fare streaming, and caching layers
-│   ├── types/          # Domain schemas and TypeScript interface models
-│   └── utils/          # Math utilities, loggers, and formatters
-├── tests/              # Unit, integration, and load test suites
-├── .gitignore          # Production Git exclusion rules
-├── CLAUDE.md           # AI engineering conventions & repository context
+│   ├── engine/         # Multi-agent content generation pipeline (Copy, SEO, Visual)
+│   ├── visibility/     # AEO/GEO scoring, schema injection, AI citation tracking
+│   ├── refresh/        # Continuous audit and page freshness monitors
+│   ├── reach/          # Multilingual localization adaptors
+│   ├── command/        # Aggregated analytics and reporting services
+│   ├── types/          # Domain TypeScript schemas and Zod validators
+│   └── index.ts        # Core FlyRank.ai growth platform entry point
+├── tests/              # Unit and integration test suites
+├── .gitignore          # Git exclusion rules
+├── CLAUDE.md           # AI assistant workspace instructions
 ├── LICENSE             # MIT Open-Source License
-├── package.json        # Service metadata, dependencies, and npm scripts
-└── README.md           # FlyRank.ai platform overview and quickstart
+├── package.json        # Service metadata and npm scripts
+└── README.md           # Platform documentation and architecture
 ```
 
 ---
 
 ## 3. Development Commands & Scripts
 
-Always run commands via standard npm scripts:
+All operations must be run using standard npm scripts:
 
 | Command | Purpose |
 | :--- | :--- |
-| `npm run dev` | Starts local development server with hot reload |
+| `npm run dev` | Runs the FlyRank engine in watch mode |
 | `npm run build` | Compiles TypeScript sources to production bundles in `/dist` |
 | `npm run start` | Runs the compiled production server |
-| `npm test` | Runs the test suite |
-| `npm run test:watch`| Runs tests in watch mode |
-| `npm run lint` | Performs static analysis with ESLint |
-| `npm run format` | Enforces formatting standards via Prettier |
-| `npm run typecheck`| Verifies type safety with `tsc --noEmit` |
+| `npm test` | Executes the Vitest test suite |
+| `npm run test:watch`| Executes Vitest in interactive watch mode |
+| `npm run lint` | Runs ESLint for static code analysis |
+| `npm run format` | Enforces code formatting via Prettier |
+| `npm run typecheck`| Validates static types with `tsc --noEmit` |
 
 ---
 
 ## 4. Coding Standards & Conventions
 
 ### TypeScript & Engineering Rules
-- **Strict Typing:** Avoid `any`; use `unknown` with runtime Zod parsing for external airline payloads.
-- **Async & Concurrency:** Use `async`/`await` for asynchronous I/O; handle promise rejections and timeouts gracefully.
-- **Immutability:** Keep scoring calculation functions pure, deterministic, and side-effect free.
-- **Error Handling:** Use typed domain errors with descriptive HTTP status codes.
+- **Strict Typing:** Never use `any`; use `unknown` with runtime Zod schemas for external AI platform responses.
+- **Pure Functions:** Maintain business calculations (visibility scores, citation rankers) pure and deterministic.
+- **Async & Resilience:** Always handle rate limits, retry policies, and timeout fallbacks for external AI provider APIs.
+- **Error Handling:** Use custom domain error classes with standardized telemetry.
 
 ### Conventional Commits
-All commit messages must follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+All commits must follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
 - `feat:` Introduces a new feature or algorithmic capability
-- `fix:` Fixes an issue or bug
-- `docs:` Documentation changes only (`README.md`, `CLAUDE.md`, JSDoc)
-- `style:` Formatting, missing semicolons, whitespace adjustments
-- `refactor:` Code refactoring without behavioral changes
-- `perf:` Performance improvements and latency reductions
-- `test:` Adding or updating tests
-- `chore:` Maintenance, package updates, tooling config
+- `fix:` Fixes a defect
+- `docs:` Documentation updates (`README.md`, `CLAUDE.md`, JSDoc)
+- `style:` Formatting, white-space adjustments
+- `refactor:` Code restructuring with no behavioral change
+- `perf:` Performance optimizations
+- `test:` Adding or updating unit/integration tests
+- `chore:` Maintenance, dependency updates, tooling
 
-*Example:* `feat(scoring): implement FlyRank.ai multi-criteria Pareto ranking`
+*Example:* `feat(visibility): implement AEO citation tracking for Claude and Perplexity`
 
 ---
 
 ## 5. AI Assistant Directives
-- **Verification First:** Validate code changes with `npm run typecheck` and `npm test`.
-- **Atomic Commits:** Separate feature additions, refactors, and documentation updates into clean conventional commits.
-- **Documentation Sync:** Ensure `README.md` and `CLAUDE.md` accurately reflect all codebase evolutions.
+- **Verification First:** Run `npm run typecheck` and `npm test` before concluding any code edits.
+- **Keep Documentation Synchronized:** Always maintain `README.md` and `CLAUDE.md` to reflect architecture changes.

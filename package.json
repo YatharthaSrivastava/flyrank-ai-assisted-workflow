@@ -1,7 +1,7 @@
 {
-  "name": "@flyrank/core",
+  "name": "@flyrank/ai-growth-engine",
   "version": "0.1.0",
-  "description": "FlyRank.ai - Enterprise Flight Search and Multi-Criteria Ranking Engine",
+  "description": "FlyRank.ai - The Autopilot for Organic Growth & AI Search Visibility Platform (AEO/GEO)",
   "homepage": "https://flyrank.ai",
   "main": "dist/index.js",
   "scripts": {
@@ -16,11 +16,14 @@
   },
   "keywords": [
     "flyrank",
-    "flight-search",
-    "ranking-algorithm",
-    "travel-tech",
-    "pareto-optimal",
-    "ai"
+    "ai-search",
+    "aeo",
+    "geo",
+    "organic-growth",
+    "chatgpt-search",
+    "perplexity",
+    "claude-citations",
+    "google-ai-overviews"
   ],
   "author": "FlyRank.ai Engineering <engineering@flyrank.ai>",
   "license": "MIT",
