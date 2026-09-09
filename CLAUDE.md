@@ -30,7 +30,7 @@ This document guides AI assistants (Claude Code, Cursor, Antigravity) working on
 ## 2. Directory Structure & Conventions
 
 ```text
-assign1/
+.
 ├── src/
 │   ├── engine/         # Multi-agent content generation pipeline (Copy, SEO, Visual)
 │   ├── visibility/     # AEO/GEO scoring, schema injection, AI citation tracking
@@ -38,13 +38,16 @@ assign1/
 │   ├── reach/          # Multilingual localization adaptors
 │   ├── command/        # Aggregated analytics and reporting services
 │   ├── types/          # Domain TypeScript schemas and Zod validators
+│   ├── settings.ts     # User & workspace settings module (Round 2)
 │   └── index.ts        # Core FlyRank.ai growth platform entry point
 ├── tests/              # Unit and integration test suites
+│   └── settings.test.ts # Automated test suite for settings module
 ├── .gitignore          # Git exclusion rules
 ├── CLAUDE.md           # AI assistant workspace instructions
 ├── LICENSE             # MIT Open-Source License
 ├── package.json        # Service metadata and npm scripts
-└── README.md           # Platform documentation and architecture
+├── README.md           # Platform documentation and architecture
+└── WORKFLOW.md         # AI development workflow drill comparison
 ```
 
 ---
