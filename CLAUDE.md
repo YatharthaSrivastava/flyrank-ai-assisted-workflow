@@ -30,7 +30,7 @@ This document guides AI assistants (Claude Code, Cursor, Antigravity) working on
 ## 2. Directory Structure & Conventions
 
 ```text
-assign1/
+.
 ├── src/
 │   ├── engine/         # Multi-agent content generation pipeline (Copy, SEO, Visual)
 │   ├── visibility/     # AEO/GEO scoring, schema injection, AI citation tracking
@@ -38,13 +38,16 @@ assign1/
 │   ├── reach/          # Multilingual localization adaptors
 │   ├── command/        # Aggregated analytics and reporting services
 │   ├── types/          # Domain TypeScript schemas and Zod validators
+│   ├── settings.ts     # User & workspace settings module (Round 2)
 │   └── index.ts        # Core FlyRank.ai growth platform entry point
 ├── tests/              # Unit and integration test suites
+│   └── settings.test.ts # Automated test suite for settings module
 ├── .gitignore          # Git exclusion rules
 ├── CLAUDE.md           # AI assistant workspace instructions
 ├── LICENSE             # MIT Open-Source License
 ├── package.json        # Service metadata and npm scripts
-└── README.md           # Platform documentation and architecture
+├── README.md           # Platform documentation and architecture
+└── WORKFLOW.md         # AI development workflow drill comparison
 ```
 
 ---
@@ -92,3 +95,11 @@ All commits must follow the [Conventional Commits](https://www.conventionalcommi
 ## 5. AI Assistant Directives
 - **Verification First:** Run `npm run typecheck` and `npm test` before concluding any code edits.
 - **Keep Documentation Synchronized:** Always maintain `README.md` and `CLAUDE.md` to reflect architecture changes.
+
+---
+
+## 6. Concrete Project Rules (AI-Assisted Development Drill)
+
+1. **Form Validation & Accessibility Standard:** Every form input must have an explicitly bound accessible label (`<label for="input-id">`), dynamic `aria-invalid` state attributes, and an associated error element linked via `aria-describedby="error-id"`. Validation errors must never rely solely on color (must include clear descriptive text and non-color warning icons with `role="alert"`).
+2. **Mandatory Automated Test Coverage:** All newly implemented form controls, validators, and submission state machines must include automated Vitest tests in `tests/` covering: empty field rejection, malformed inputs (RFC regex validation for emails), string sanitization/trimming, minimum length requirements, and successful submission payloads.
+3. **Architectural Isolation & Scope Protection:** Feature implementations must preserve existing application behaviors, adhere strictly to project TypeScript interfaces, and never modify unrelated platform files or add third-party UI libraries without explicit requirement and review.
