@@ -92,3 +92,11 @@ All commits must follow the [Conventional Commits](https://www.conventionalcommi
 ## 5. AI Assistant Directives
 - **Verification First:** Run `npm run typecheck` and `npm test` before concluding any code edits.
 - **Keep Documentation Synchronized:** Always maintain `README.md` and `CLAUDE.md` to reflect architecture changes.
+
+---
+
+## 6. Concrete Project Rules (AI-Assisted Development Drill)
+
+1. **Form Validation & Accessibility Standard:** Every form input must have an explicitly bound accessible label (`<label for="input-id">`), dynamic `aria-invalid` state attributes, and an associated error element linked via `aria-describedby="error-id"`. Validation errors must never rely solely on color (must include clear descriptive text and non-color warning icons with `role="alert"`).
+2. **Mandatory Automated Test Coverage:** All newly implemented form controls, validators, and submission state machines must include automated Vitest tests in `tests/` covering: empty field rejection, malformed inputs (RFC regex validation for emails), string sanitization/trimming, minimum length requirements, and successful submission payloads.
+3. **Architectural Isolation & Scope Protection:** Feature implementations must preserve existing application behaviors, adhere strictly to project TypeScript interfaces, and never modify unrelated platform files or add third-party UI libraries without explicit requirement and review.
