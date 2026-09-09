@@ -83,4 +83,6 @@ export function createVisibilityAudit(domain: string, brandName: string): BrandV
   };
 }
 
+export * from "./settings";
+
 console.log("⚡ FlyRank.ai Platform Core initialized - The Autopilot for Organic & AI Search Growth.");
